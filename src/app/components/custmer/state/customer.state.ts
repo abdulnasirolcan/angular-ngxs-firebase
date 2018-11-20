@@ -63,6 +63,7 @@ export class CustomerState {
       const state = getState();
       // patchState({ customers: [...state.customers, ...customers] });
       patchState({ customers: [...customers] });
+      //patchState({ customers });
     });
   }
 
@@ -93,7 +94,12 @@ export class CustomerState {
   remove({ getState, patchState }: StateContext<CustomerStateModel>, { productId }: DeleteCustomers) {
     const state = getState();
     this.customerService.removeProduct(productId).then(
-      () => console.log(`Delete Success This  ${productId}`),
+      () => {
+        console.log(`Delete Success This  ${productId}`);
+        patchState({
+          customers: getState().customers.filter(customer=>customer.id!==productId)
+        });
+      },
       err => {
         throw new Error(err);
       },
