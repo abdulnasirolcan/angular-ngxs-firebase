@@ -71,9 +71,11 @@ export class CustomerState {
   @Action(UpdatedCustomer)
   updateCustomer(ctx: StateContext<CustomerStateModel>, action: UpdatedCustomer) {
     const state = ctx.getState();
+    console.log("action::::::",state);
     ctx.patchState({
-      customers: state.customers.filter(({ id }) => id === action.id),
+      customers: state.customers.filter(customer  => customer.id === action.id)
     });
+    return state.customers;
   }
   @Action(UpdateFormCustomer)
   update({ getState, patchState }: StateContext<CustomerStateModel>, { payload }: UpdateFormCustomer) {

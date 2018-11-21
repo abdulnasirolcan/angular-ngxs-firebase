@@ -22,7 +22,8 @@ import { Navigate } from '@ngxs/router-plugin';
   styleUrls: ['./edit-customer.component.scss'],
 })
 export class EditCustomerComponent implements OnInit {
-  customer: Observable<Customer[]>;
+  @Select(CustomerState.getCustomers) customers: Observable<Customer[]>;
+  customer2:any;
   id: any;
   updateCustomerForm: FormGroup;
   showAddMessage: boolean;
@@ -50,10 +51,11 @@ export class EditCustomerComponent implements OnInit {
     });
   };
 
-  ngOnInit() {
+  async ngOnInit() {
     this.id = this._route.snapshot.params['id'];
     if (this.id) {
-      this.customer = this.store.dispatch(new UpdatedCustomer(this.id));
+      this.customer2 = await this.store.dispatch(new UpdatedCustomer(this.id)).toPromise();
+      //console.log('test:test',this.customer2.customers[0].name);
       this.updateCustomer();
     }
     // this.id = this._route.snapshot.params['id'];
