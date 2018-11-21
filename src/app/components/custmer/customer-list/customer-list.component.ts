@@ -26,6 +26,7 @@ export class CustomerListComponent implements OnInit {
     if (confirm(`Are you sure to Delete this ${productId} ?`)) {
       this.store.dispatch(new DeleteCustomers(productId));
       this.showDeleteMessage = true;
+      setTimeout(() => (this.showDeleteMessage = false), 3000);
     }
   }
 }

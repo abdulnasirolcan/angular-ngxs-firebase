@@ -26,6 +26,7 @@ export class AddCustomerComponent implements OnInit {
   createCustomerForm: FormGroup;
   showAddMessage: boolean;
   id: any;
+  isEdit: Boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private _route: ActivatedRoute,
@@ -38,10 +39,15 @@ export class AddCustomerComponent implements OnInit {
 
   ngOnInit() {
     this.id = this._route.snapshot.params['id'];
-    this.store.dispatch(new UpdatedCustomer(this.id));
+    if (this.id) {
+      this.isEdit = true;
+      this.store.dispatch(new UpdatedCustomer(this.id));
+      this.createCustomer();
+    }
   }
   createCustomer = () => {
     this.createCustomerForm = this.formBuilder.group({
+      id: null,
       name: ['', Validators.required],
       email: ['', Validators.required],
       address: ['', Validators.required],
@@ -53,17 +59,19 @@ export class AddCustomerComponent implements OnInit {
   // };
 
   saveCustomer = (name, email, address, phone) => {
-    if (confirm(`Are you sure to Add this ${name} ?`)) {
-      this.store.dispatch(
-        new CreateCustomer({
-          name: name,
-          email: email,
-          address: address,
-          phone: phone,
-        }),
-      );
-      this.showAddMessage = true;
-      setTimeout(() => (this.showAddMessage = false), 3000);
+    if (this.createCustomerForm.valid) {
+      if (confirm(`Are you sure to Add this ${name} ?`)) {
+        this.store.dispatch(
+          new CreateCustomer({
+            name: name,
+            email: email,
+            address: address,
+            phone: phone,
+          }),
+        );
+        this.showAddMessage = true;
+        setTimeout(() => (this.showAddMessage = false), 3000);
+      }
     }
 
     //this.createCustomerForm.reset();

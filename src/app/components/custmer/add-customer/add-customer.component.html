@@ -5,13 +5,15 @@
     <table class="table table-striped table-hover">
       <thead>
         <tr>
-          <th><h3 class="col-sm-4 mx-auto">Create Customers</h3></th>
+          <th *ngIf="!isEdit"><h3 class="col-sm-4 mx-auto">Create Customers</h3></th>
+          <th *ngIf="isEdit"><h3 class="col-sm-4 mx-auto">Edit Customers</h3></th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <div>
-            <form [formGroup]="createCustomerForm">
+          <div class="pt-4">
+            <form [formGroup]="createCustomerForm" ngxsForm="createCustomerForm">
+              <input type="hidden" formControlName="id" #id />
               <div class="form-group">
                 <input
                   class="form-control col-sm-8 mx-auto"
@@ -88,7 +90,7 @@
               </div>
               <button
                 type="button"
-                class="btn btn-success btn-block col-sm-8 mx-auto"
+                class="btn btn-success btn-block col-sm-8 mx-auto mb-4"
                 [disabled]="!this.createCustomerForm.valid"
                 (click)="saveCustomer(name.value, email.value, address.value, phone.value)"
               >
@@ -102,4 +104,4 @@
   </div>
 </div>
 <!-- {{ customers | async | json }} -->
-{{ (customers | async)[0].email | json}}
+<!-- {{ (customers | async)[0].email | json }} -->

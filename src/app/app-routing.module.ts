@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'add-customer', component: AddCustomerComponent, canActivate: [AuthGuard] },
   {
     path: 'edit-customer/:id',
-    component: AddCustomerComponent,
+    component: EditCustomerComponent,
     canActivate: [AuthGuard],
     // data: { customer: Customer },
   },

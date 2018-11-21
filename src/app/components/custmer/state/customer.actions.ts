@@ -6,6 +6,7 @@ export const DELETE_CUSTOMER = 'Customer_Delete';
 export const GET_CUSTOMER = 'Customer_Get';
 export const GET_UPDATE_CUSTOMER = 'Get_Updated_Customer';
 export const DATA_CHANGEDER = 'Data_Changeder';
+export const UPDATE_CUSTOMER_FORM = 'Update_Customer_Form';
 
 export class CreateCustomer {
   static readonly type = CREATE_CUSTOMER;
@@ -19,6 +20,12 @@ export class UpdatedCustomer {
   static readonly type = UPDATE_CUSTOMER;
   constructor(public id: string) {}
 }
+
+export class UpdateFormCustomer {
+  static readonly type = UPDATE_CUSTOMER_FORM;
+  constructor(public payload: Customer) {}
+}
+
 export class GetUpdatedCustomers {
   static readonly type = GET_UPDATE_CUSTOMER;
 }

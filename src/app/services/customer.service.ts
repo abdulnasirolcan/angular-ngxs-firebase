@@ -41,6 +41,15 @@ export class CustomerService {
       phone: phone,
     });
   }
+  updateProduct(id: string, name: string, email: string, address: string, phone: string): Promise<any> {
+    const productCollection = this.af.doc<Customer>(this.dbPath + id);
+    return productCollection.update({
+      name: name,
+      email: email,
+      address: address,
+      phone: phone,
+    });
+  }
   getUpdatedProducts(): Observable<Customer[]> {
     return this.af
       .collection<Customer>(this.dbPath)

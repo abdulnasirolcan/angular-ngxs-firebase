@@ -1,1 +1,105 @@
-{{ customers | async | json }} <br />{{ customer.name | async | json }}
+<app-dashboard></app-dashboard>
+<router-outlet></router-outlet>
+<div class="container">
+  <div class="table-wrapper">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th><h3 class="col-sm-4 mx-auto">Edit Customers</h3></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <div class="pt-4">
+            <form [formGroup]="updateCustomerForm" ngxsForm="updateCustomerForm">
+              <input type="hidden" formControlName="id" #id />
+              <div class="form-group">
+                <input
+                  class="form-control col-sm-8 mx-auto"
+                  formControlName="name"
+                  type="text"
+                  placeholder="name"
+                  #name
+                />
+                <div
+                  *ngIf="
+                    updateCustomerForm.controls['name'].invalid &&
+                    (updateCustomerForm.controls['name'].dirty || updateCustomerForm.controls['name'].touched)
+                  "
+                  class="text-danger"
+                >
+                  <div *ngIf="updateCustomerForm.controls['name'].errors.required">Name is required*</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input
+                  class="form-control col-sm-8 mx-auto"
+                  formControlName="email"
+                  type="email"
+                  placeholder="email"
+                  #email
+                />
+                <div
+                  *ngIf="
+                    updateCustomerForm.controls['email'].invalid &&
+                    (updateCustomerForm.controls['email'].dirty || updateCustomerForm.controls['email'].touched)
+                  "
+                  class="text-danger"
+                >
+                  <div *ngIf="updateCustomerForm.controls['email'].errors.required">Email is required*</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <textarea
+                  class="form-control col-sm-8 mx-auto"
+                  formControlName="address"
+                  cols="3"
+                  rows="10"
+                  placeholder="Address"
+                  #address
+                ></textarea>
+
+                <div
+                  *ngIf="
+                    updateCustomerForm.controls['address'].invalid &&
+                    (updateCustomerForm.controls['address'].dirty || updateCustomerForm.controls['address'].touched)
+                  "
+                  class="text-danger"
+                >
+                  <div *ngIf="updateCustomerForm.controls['address'].errors.required">Address is required*</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input
+                  class="form-control col-sm-8 mx-auto"
+                  formControlName="phone"
+                  type="tel"
+                  placeholder="phone"
+                  #phone
+                />
+                <div
+                  *ngIf="
+                    updateCustomerForm.controls['phone'].invalid &&
+                    (updateCustomerForm.controls['phone'].dirty || updateCustomerForm.controls['phone'].touched)
+                  "
+                  class="text-danger"
+                >
+                  <div *ngIf="updateCustomerForm.controls['phone'].errors.required">Phone is required*</div>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="btn btn-success btn-block col-sm-8 mx-auto mb-4"
+                [disabled]="!this.updateCustomerForm.valid"
+                (click)="updateSaveCustomer(id.value)"
+              >
+                Edit Save Customer
+              </button>
+            </form>
+          </div>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- {{ (customer | async)[0].email }} -->
